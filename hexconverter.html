@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hex, Decimal, Binary Converter with Guide</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4">Hex, Decimal, Binary Converter</h1>
+
+                        <!-- Decimal Input -->
+                        <div class="mb-3">
+                            <label for="decimalInput" class="form-label">Decimal:</label>
+                            <input type="text" id="decimalInput" class="form-control" placeholder="Enter a decimal number" oninput="convertFromDecimal()">
+                        </div>
+
+                        <!-- Hexadecimal Input -->
+                        <div class="mb-3">
+                            <label for="hexInput" class="form-label">Hexadecimal:</label>
+                            <input type="text" id="hexInput" class="form-control" placeholder="Enter a hexadecimal number" oninput="convertFromHex()">
+                        </div>
+
+                        <!-- Binary Input -->
+                        <div class="mb-3">
+                            <label for="binaryInput" class="form-label">Binary:</label>
+                            <input type="text" id="binaryInput" class="form-control" placeholder="Enter a binary number" oninput="convertFromBinary()">
+                        </div>
+
+                        <hr>
+                        <h5 class="mt-4">Guide: How to Convert Between Decimal, Hex, and Binary</h5>
+
+                        <h6>1. Convert Decimal to Hexadecimal</h6>
+                        <p>To convert decimal to hexadecimal, divide the decimal number by 16 repeatedly. Record the remainder after each division (this is your hexadecimal digit). The process stops when the quotient becomes 0. The hexadecimal number is the remainders read from bottom to top.</p>
+                        <p>Example: Convert 255 to Hexadecimal:</p>
+                        <ul>
+                            <li>255 ÷ 16 = 15 remainder 15 (F in hex)</li>
+                            <li>15 ÷ 16 = 0 remainder 15 (F in hex)</li>
+                            <li>Hexadecimal: FF</li>
+                        </ul>
+
+                        <h6>2. Convert Decimal to Binary</h6>
+                        <p>To convert decimal to binary, divide the decimal number by 2 repeatedly. Record the remainder after each division (this is your binary digit). The process stops when the quotient becomes 0. The binary number is the remainders read from bottom to top.</p>
+                        <p>Example: Convert 10 to Binary:</p>
+                        <ul>
+                            <li>10 ÷ 2 = 5 remainder 0</li>
+                            <li>5 ÷ 2 = 2 remainder 1</li>
+                            <li>2 ÷ 2 = 1 remainder 0</li>
+                            <li>1 ÷ 2 = 0 remainder 1</li>
+                            <li>Binary: 1010</li>
+                        </ul>
+
+                        <h6>3. Convert Hexadecimal to Binary and Decimal</h6>
+                        <p>You can convert each hexadecimal digit to its 4-bit binary equivalent and then convert the binary value to decimal.</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Convert from Decimal
+        function convertFromDecimal() {
+            const decimalValue = document.getElementById('decimalInput').value;
+            if (decimalValue === '' || isNaN(decimalValue)) {
+                clearInputs();
+                return;
+            }
+
+            const decimalNumber = parseInt(decimalValue, 10);
+
+            // Convert and set other inputs
+            document.getElementById('hexInput').value = decimalNumber.toString(16).toUpperCase();
+            document.getElementById('binaryInput').value = decimalNumber.toString(2);
+        }
+
+        // Convert from Hexadecimal
+        function convertFromHex() {
+            const hexValue = document.getElementById('hexInput').value;
+            if (hexValue === '' || !/^[a-fA-F0-9]+$/.test(hexValue)) {
+                clearInputs();
+                return;
+            }
+
+            const decimalNumber = parseInt(hexValue, 16);
+
+            // Convert and set other inputs
+            document.getElementById('decimalInput').value = decimalNumber.toString(10);
+            document.getElementById('binaryInput').value = decimalNumber.toString(2);
+        }
+
+        // Convert from Binary
+        function convertFromBinary() {
+            const binaryValue = document.getElementById('binaryInput').value;
+            if (binaryValue === '' || !/^[01]+$/.test(binaryValue)) {
+                clearInputs();
+                return;
+            }
+
+            const decimalNumber = parseInt(binaryValue, 2);
+
+            // Convert and set other inputs
+            document.getElementById('decimalInput').value = decimalNumber.toString(10);
+            document.getElementById('hexInput').value = decimalNumber.toString(16).toUpperCase();
+        }
+
+        // Clear the other inputs if invalid data is entered
+        function clearInputs() {
+            document.getElementById('decimalInput').value = '';
+            document.getElementById('hexInput').value = '';
+            document.getElementById('binaryInput').value = '';
+        }
+    </script>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
